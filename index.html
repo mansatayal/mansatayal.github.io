@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mansa — CV / Embedded / AI Engineer</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
+  :root{
+    --bg: #0E1310;
+    --bg-panel: #161C18;
+    --bg-panel-alt: #1B2420;
+    --accent: #6EFFA0;
+    --accent-dim: #3E8F5E;
+    --amber: #FFB454;
+    --text: #E8EDE9;
+    --text-muted: #8B9990;
+    --border: #2A342E;
+    --mono: 'Space Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  ::selection{ background:var(--accent); color:#04140A; }
+
+  a{ color:inherit; text-decoration:none; }
+
+  .trace-top{
+    position:fixed; top:0; left:0; right:0; height:2px; z-index:60;
+    background:var(--border);
+  }
+  .trace-top::after{
+    content:''; position:absolute; top:0; left:0; height:100%; width:6%;
+    background:var(--accent);
+    box-shadow:0 0 8px var(--accent);
+    animation:travel 6s linear infinite;
+  }
+  @keyframes travel{
+    0%{ left:-6%; }
+    100%{ left:100%; }
+  }
+
+  header{
+    position:fixed; top:2px; left:0; right:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 40px;
+    background:rgba(14,19,16,0.85);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--border);
+  }
+  .logo{
+    font-family:var(--mono); font-weight:700; font-size:15px; letter-spacing:2px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .dot{
+    width:8px; height:8px; border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 6px var(--accent);
+    animation:pulse 2.2s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ opacity:1; } 50%{ opacity:0.35; }
+  }
+  .status-text{ font-family:var(--mono); font-size:11px; color:var(--accent); letter-spacing:1px; }
+
+  nav ul{ display:flex; gap:32px; list-style:none; }
+  nav a{
+    font-family:var(--mono); font-size:12px; letter-spacing:1.5px;
+    color:var(--text-muted); text-transform:uppercase;
+    padding-bottom:4px; border-bottom:1px solid transparent;
+    transition:color .2s, border-color .2s;
+  }
+  nav a:hover{ color:var(--accent); border-color:var(--accent); }
+
+  section{
+    padding:120px 40px 90px;
+    max-width:1120px; margin:0 auto;
+    border-bottom:1px solid var(--border);
+  }
+  .section-tag{
+    font-family:var(--mono); font-size:11px; color:var(--amber);
+    letter-spacing:3px; text-transform:uppercase; margin-bottom:18px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .section-tag::before{
+    content:''; width:18px; height:1px; background:var(--amber);
+  }
+
+  /* HERO */
+  .hero{
+    min-height:100vh; display:flex; align-items:center;
+    padding-top:120px;
+    border-bottom:1px solid var(--border);
+  }
+  .hero-grid{
+    width:100%;
+    max-width:720px;
+    margin:0 auto;
+    text-align:center;
+  }
+  .hero h1{
+    font-family:var(--mono); font-weight:700;
+    font-size:clamp(32px, 4.4vw, 54px);
+    line-height:1.18; letter-spacing:-0.5px;
+    margin-bottom:22px;
+  }
+  .hero h1 .accent{ color:var(--accent); }
+  .hero p.lede{
+    font-size:16px; color:var(--text-muted); max-width:480px; margin:0 auto 32px;
+  }
+  .cta-row{ display:flex; gap:16px; flex-wrap:wrap; justify-content:center; }
+  .btn{
+    font-family:var(--mono); font-size:12px; letter-spacing:1px; text-transform:uppercase;
+    padding:13px 24px; border:1px solid var(--accent); color:var(--accent);
+    transition:background .2s, color .2s;
+  }
+  .btn:hover{ background:var(--accent); color:#04140A; }
+  .btn.ghost{ border-color:var(--border); color:var(--text-muted); }
+  .btn.ghost:hover{ border-color:var(--text-muted); background:transparent; color:var(--text); }
+
+  /* ABOUT */
+  .about-grid{ display:grid; grid-template-columns:1fr 1fr; gap:50px; }
+  .about-grid p{ color:var(--text-muted); font-size:15.5px; margin-bottom:16px; }
+  .spec-list{ font-family:var(--mono); font-size:13px; }
+  .spec-list div{
+    display:flex; justify-content:space-between; padding:10px 0;
+    border-bottom:1px solid var(--border); color:var(--text-muted);
+  }
+  .spec-list div span:last-child{ color:var(--text); text-align:right; }
+
+  /* PROJECTS */
+  .project-grid{ display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  .card{
+    background:var(--bg-panel);
+    border:1px solid var(--border);
+    padding:28px;
+    transition:border-color .25s, transform .25s;
+    position:relative;
+  }
+  .card:hover{ border-color:var(--accent-dim); transform:translateY(-3px); }
+  .card.flagship{ grid-column:1 / -1; }
+  .card-top{
+    display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px;
+  }
+  .card h3{ font-family:var(--mono); font-size:18px; letter-spacing:.5px; }
+  .badge{
+    font-family:var(--mono); font-size:10px; letter-spacing:1px;
+    padding:4px 9px; border:1px solid var(--accent-dim); color:var(--accent);
+    text-transform:uppercase; white-space:nowrap;
+  }
+  .badge.wip{ border-color:var(--amber); color:var(--amber); }
+  .card p{ color:var(--text-muted); font-size:14px; margin-bottom:16px; }
+  .tags{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px; }
+  .tag{
+    font-family:var(--mono); font-size:10.5px; color:var(--text-muted);
+    border:1px solid var(--border); padding:4px 8px; letter-spacing:.5px;
+  }
+  .card-link{
+    font-family:var(--mono); font-size:11.5px; color:var(--accent);
+    letter-spacing:1px; display:inline-flex; align-items:center; gap:6px;
+  }
+  .card-link:hover{ text-decoration:underline; }
+
+  /* SKILLS */
+  .skills-grid{ display:grid; grid-template-columns:repeat(4, 1fr); gap:22px; }
+  .skill-col h4{
+    font-family:var(--mono); font-size:11px; color:var(--amber);
+    letter-spacing:2px; text-transform:uppercase; margin-bottom:14px;
+  }
+  .skill-col ul{ list-style:none; }
+  .skill-col li{
+    font-size:14px; color:var(--text-muted); padding:6px 0;
+    border-bottom:1px dashed var(--border);
+  }
+
+  /* CONTACT */
+  .contact-panel{
+    background:var(--bg-panel); border:1px solid var(--border);
+    padding:40px; display:grid; grid-template-columns:1fr 1fr; gap:30px;
+  }
+  .contact-panel h2{ font-family:var(--mono); font-size:24px; margin-bottom:10px; }
+  .contact-panel p{ color:var(--text-muted); font-size:14.5px; margin-bottom:24px; }
+  .field{ margin-bottom:16px; }
+  .field label{
+    font-family:var(--mono); font-size:10.5px; color:var(--text-muted);
+    letter-spacing:1.5px; text-transform:uppercase; display:block; margin-bottom:4px;
+  }
+  .field .value{ font-family:var(--mono); font-size:14px; color:var(--text); }
+  .field .value.placeholder{ color:var(--amber); }
+
+  footer{
+    text-align:center; padding:30px; font-family:var(--mono);
+    font-size:11px; color:var(--text-muted); letter-spacing:1px;
+  }
+
+  @media (max-width: 860px){
+    header{ padding:16px 20px; }
+    nav ul{ display:none; }
+    section{ padding:100px 20px 60px; }
+    .hero-grid, .about-grid, .contact-panel{ grid-template-columns:1fr; }
+    .project-grid{ grid-template-columns:1fr; }
+    .skills-grid{ grid-template-columns:1fr 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="trace-top"></div>
+
+<header>
+  <div class="logo"><span class="dot"></span>MANSA <span class="status-text">// ONLINE</span></div>
+  <nav>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Stack</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <h1>I build systems<br>that <span class="accent">see</span> and <span class="accent">sense</span>.</h1>
+      <p class="lede">Computer vision engineer working at the intersection of AI, robotics, and embedded systems — real sensors and hardware, not just a model in a notebook. B.Tech CS graduate based in Delhi NCR, looking for a small, fast-moving team building embedded AI or IoT products.</p>
+      <div class="cta-row">
+        <a href="#projects" class="btn">View Projects</a>
+        <a href="#contact" class="btn ghost">Get In Touch</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-tag">Init — About</div>
+  <div class="about-grid">
+    <div>
+      <p>I'm a recent Computer Science graduate (B.Tech, M.E.R.I. College of Engineering &amp; Technology, affiliated with MDU), and my technical identity is built around one deliberate choice: combining AI, robotics, and embedded systems instead of following the more common chatbot / agentic-AI path.</p>
+      <p>I like small-team, high-chaos, fast-learning environments — the kind where you own a system end to end, from the sensor to the decision logic to the interface. My longer-term plan is to build 1–2 years of industry experience in embedded AI before pursuing a Master's abroad in embedded systems or robotics.</p>
+    </div>
+    <div class="spec-list">
+      <div><span>Focus</span><span>Computer Vision · Embedded AI · IoT</span></div>
+      <div><span>Education</span><span>B.Tech CS, M.E.R.I. College (MDU)</span></div>
+      <div><span>Location</span><span>Delhi NCR, India</span></div>
+      <div><span>Looking for</span><span>Embedded AI / IoT / robotics roles</span></div>
+      <div><span>Status</span><span style="color:var(--accent)">Actively job-seeking</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-tag">Pipeline — Projects</div>
+
+  <div class="project-grid">
+
+    <div class="card flagship">
+      <div class="card-top">
+        <h3>Gesture App</h3>
+        <span class="badge">Flagship</span>
+      </div>
+      <p>A real-time hand-gesture interface built with OpenCV and MediaPipe that replaces the mouse with hand tracking. <strong style="color:var(--text)">DRAW mode</strong> turns finger position into a canvas — adjustable stroke thickness, a resizable eraser (thumb + index + middle), and a 7-swatch color strip selected with a 3-second index-finger hold. <strong style="color:var(--text)">COUNT mode</strong> maps finger-count gestures to presentation controls — next slide, previous slide, start, stop — each confirmed with a hold gesture and audio feedback. Tuned MediaPipe's model complexity and confidence thresholds to keep it running smoothly in real time.</p>
+      <div class="tags">
+        <span class="tag">Python</span><span class="tag">OpenCV</span><span class="tag">MediaPipe</span><span class="tag">Pygame</span><span class="tag">PyAutoGUI</span>
+      </div>
+      <a href="https://github.com/mansatayal/gesture-app" class="card-link" target="_blank" rel="noopener noreferrer">
+        View Project
+      </a>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <h3>CodeCrafters Shell</h3>
+        <span class="badge wip">In Progress</span>
+      </div>
+      <p>A POSIX-style shell built from scratch — REPL, builtins (cd, pwd, type, echo), PATH resolution, I/O redirection, and tab-autocompletion via readline. Current frontier: pipeline support (<code>|</code>) using os.pipe() and chained subprocess.Popen calls.</p>
+      <div class="tags">
+        <span class="tag">Python</span><span class="tag">subprocess</span><span class="tag">POSIX</span>
+      </div>
+      <a href="https://github.com/mansatayal/shell" class="card-link" target="_blank" rel="noopener noreferrer">
+        View Project
+      </a>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <h3>ESP32 Weather Dashboard</h3>
+        <span class="badge">Complete</span>
+      </div>
+      <p>An end-to-end IoT weather station — ESP32 + DHT22 sensor feeding a live web dashboard with real-time temperature/humidity charts, gauge bars, heat index, and alert banners.</p>
+      <div class="tags">
+        <span class="tag">ESP32</span><span class="tag">Arduino</span><span class="tag">C++</span><span class="tag">Web Dashboard</span>
+      </div>
+      <a href="https://github.com/mansatayal/esp32-weather-dashboard" class="card-link" target="_blank" rel="noopener noreferrer">
+        View Project
+      </a>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <h3>Traffic Light Controller</h3>
+        <span class="badge">Complete</span>
+      </div>
+      <p>A microcontroller-based traffic light system with an LED matrix countdown timer, simulating real intersection timing logic.</p>
+      <div class="tags">
+        <span class="tag">Embedded C</span><span class="tag">LED Matrix</span><span class="tag">Microcontroller</span>
+      </div>
+      <a href="https://github.com/mansatayal/traffic-light-arduino" class="card-link" target="_blank" rel="noopener noreferrer">
+        View Project
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<section id="skills">
+  <div class="section-tag">Stack — Skills</div>
+  <div class="skills-grid">
+    <div class="skill-col">
+      <h4>Languages</h4>
+      <ul><li>Python</li><li>C++</li><li>C</li></ul>
+    </div>
+    <div class="skill-col">
+      <h4>CV / ML</h4>
+      <ul><li>OpenCV</li><li>MediaPipe</li><li>TensorFlow / Keras</li><li>NumPy · Pandas</li></ul>
+    </div>
+    <div class="skill-col">
+      <h4>Embedded / IoT</h4>
+      <ul><li>ESP32</li><li>Arduino</li><li>Sensor integration</li><li>Microcontroller programming</li></ul>
+    </div>
+    <div class="skill-col">
+      <h4>Tools</h4>
+      <ul><li>Git / GitHub</li><li>Linux / WSL</li><li>VS Code</li></ul>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-tag">TX — Contact</div>
+  <div class="contact-panel">
+    <div>
+      <h2>Let's build something.</h2>
+      <p>Open to embedded AI, IoT, and robotics roles — especially small teams shipping real hardware.</p>
+      <a href="resume.pdf" class="btn" target="_blank">
+        View Resume
+      </a>
+    </div>
+    <div>
+      <div>
+        <div class="field">
+          <label>Email</label>
+          <span class="value">
+            <a href="mailto: mansa.aggarwal.work@gmail.com" >
+              mansa.aggarwal.work@gmail.com
+            </a>
+          </span>
+        </div>
+
+        <div class="field">
+          <label>GitHub</label>
+          <span class="value">
+            <a href="https://github.com/mansatayal" target="_blank" rel="noopener noreferrer">
+              github.com/mansatayal
+            </a>
+          </span>
+        </div>
+
+        <div class="field">
+          <label>LinkedIn</label>
+          <span class="value">
+            <a href="https://www.linkedin.com/in/mansa-aggarwal-874a05269/" target="_blank" rel="noopener noreferrer">
+              linkedin.com/in/mansa-aggarwal-874a05269
+            </a>
+          </span>
+        </div>
+
+        <div class="field">
+          <label>Phone</label>
+          <span class="value">+91 95400 08583</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 MANSA — BUILT WITH PYTHON, OPENCV, AND TOO MUCH COFFEE</footer>
+
+<script>
+  const lines = [
+    { t: '[BOOT] camera init', c: 'ok', v: 'OK' },
+    { t: '[BOOT] mediapipe hands', c: 'ok', v: 'OK' },
+    { t: '[BOOT] model_complexity', c: 'val', v: '0' },
+    { t: '[BOOT] canvas layer', c: 'ok', v: 'READY' },
+    { t: '[MODE] draw', c: 'muted', v: 'active' },
+    { t: '[TRACK] index_tip', c: 'val', v: '' },
+    { t: '[TRACK] thumb_tip', c: 'val', v: '' },
+    { t: '[GESTURE] hold 3.0s', c: 'muted', v: 'color_select' },
+    { t: '[EVENT] color -> ', c: 'ok', v: '#6EFFA0' },
+    { t: '[MODE] count', c: 'muted', v: 'active' },
+    { t: '[GESTURE] fingers=1', c: 'val', v: 'NEXT_SLIDE' },
+    { t: '[GESTURE] fingers=5', c: 'val', v: 'START_PRESENT' },
+    { t: '[FPS]', c: 'val', v: '' },
+  ];
+
+  function rand(min, max){ return Math.floor(Math.random()*(max-min)+min); }
+
+  const body = document.getElementById('telemetryBody');
+  let i = 0;
+  const maxLines = 9;
+
+  function pushLine(){
+    const item = lines[i % lines.length];
+    let val = item.v;
+    if(item.t.includes('index_tip') || item.t.includes('thumb_tip')){
+      val = 'x:' + rand(80,560) + '  y:' + rand(40,380);
+    }
+    if(item.t.includes('FPS')){
+      val = rand(24,31) + '.0';
+    }
+    const div = document.createElement('div');
+    div.className = 'line';
+    div.innerHTML = item.t + ' <span class="' + item.c + '">' + val + '</span>';
+    body.appendChild(div);
+    if(body.children.length > maxLines){
+      body.removeChild(body.firstChild);
+    }
+    i++;
+  }
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if(!reduceMotion){
+    for(let k=0;k<5;k++){ pushLine(); }
+    setInterval(pushLine, 1100);
+  } else {
+    body.innerHTML = '<div class="line" style="opacity:1">[MODE] draw <span class="ok">active</span></div><div class="line" style="opacity:1">[MODE] count <span class="ok">active</span></div>';
+  }
+</script>
+
+</body>
+</html>
